@@ -14,7 +14,7 @@ app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
 # Wrap app around SocketIO
 socketio = SocketIO(app)
 
-app.route('/')
+@app.route('/')
 def hello():
     return "hello!"
 
