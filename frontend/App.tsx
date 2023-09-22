@@ -1,20 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { createTheme, ThemeProvider } from "@rneui/themed";
+import Component from "./components/MyComponent";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Text, Button } from "@rneui/themed";
+import AppConst from "./assets/const"
+import Welcome from "./pages/Welcome";
+import ChatRoom from "./pages/ChatRoom";
+
+
+const theme = createTheme({
+  lightColors: {},
+  darkColors: {},
+});
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ThemeProvider theme={theme}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName={AppConst.NAME_WELCOME_PAGE}>
+          <Stack.Screen name={AppConst.NAME_WELCOME_PAGE} component={Welcome} />
+          <Stack.Screen name={AppConst.NAME_CHATROOM_PAGE} component={ChatRoom} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ThemeProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

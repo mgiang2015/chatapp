@@ -1,0 +1,5 @@
+const NAME_WELCOME_PAGE = "Welcome"
+const NAME_CHATROOM_PAGE = "Chatroom"
+const NAME_ENTER_PAGE = "Enter"
+
+export default { NAME_WELCOME_PAGE, NAME_CHATROOM_PAGE, NAME_ENTER_PAGE }
