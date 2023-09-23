@@ -6,6 +6,8 @@ import AppConst from "../assets/const"
 export default function Welcome({ navigation }) {
     const [joinVisible, setJoinVisible] = useState(false)
     const [startVisible, setStartVisible] = useState(false)
+    const [name, setName] = useState("Me Myself & I")
+    const [chatRoom, setChatRoom] = useState("")
     const styles = useStyles();
     const { setMode, mode } = useThemeMode();
 
@@ -17,8 +19,17 @@ export default function Welcome({ navigation }) {
         setStartVisible(!startVisible)
     }
 
-    function handleStart() {
-        navigation.navigate(AppConst.NAME_CHATROOM_PAGE)
+    function handleStart(name) {
+        navigation.navigate(AppConst.NAME_CHATROOM_PAGE, {
+            name: name
+        })
+    }
+
+    function handleJoin(name, chatRoom) {
+        navigation.navigate(AppConst.NAME_CHATROOM_PAGE, {
+            name: name,
+            chatRoom: chatRoom
+        })
     }
 
     return (
@@ -28,16 +39,16 @@ export default function Welcome({ navigation }) {
             <Button size="lg" buttonStyle={{ borderRadius: 20, margin: 10  }} onPress={toggleJoinVisible}>Join Chat</Button>
             <Overlay isVisible={joinVisible} onBackdropPress={toggleJoinVisible}>
                 <View style={styles.overlay}>
-                    <Input placeholder="Name" />
-                    <Input placeholder="Chatroom number" />
-                    <Button buttonStyle={{ borderRadius: 20, margin: 10  }} onPress={() => {toggleJoinVisible(); handleStart();}}>Join</Button>
+                    <Input onChangeText={setName} value={name} placeholder="Name" />
+                    <Input onChangeText={setChatRoom} placeholder="Chatroom number" />
+                    <Button buttonStyle={{ borderRadius: 20, margin: 10  }} onPress={() => {toggleJoinVisible(); handleJoin(name, chatRoom);}}>Join</Button>
                     <Button buttonStyle={{ borderRadius: 20, margin: 10  }} onPress={toggleJoinVisible}>Back</Button>
                 </View>
             </Overlay>
             <Overlay isVisible={startVisible} onBackdropPress={toggleStartVisible}>
                 <View style={styles.overlay}>
-                    <Input placeholder="Name" />
-                    <Button buttonStyle={{ borderRadius: 20, margin: 10  }} onPress={() => {toggleStartVisible(); handleStart();}}>Join</Button>
+                    <Input onChangeText={setName} value={name} placeholder="Name" />
+                    <Button buttonStyle={{ borderRadius: 20, margin: 10  }} onPress={() => {toggleStartVisible(); handleStart(name);}}>Start</Button>
                     <Button buttonStyle={{ borderRadius: 20, margin: 10  }} onPress={toggleStartVisible}>Back</Button>
                 </View>
             </Overlay>
